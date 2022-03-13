@@ -2,6 +2,13 @@
 #include "stdio.h";
 #include<exception>
 
+struct employee
+{
+    int num;
+    char name[10];
+    double hours;
+};
+
 void CallProcess(char* commandLine)
 {
     STARTUPINFO si;
@@ -44,6 +51,29 @@ char* CreateCommandLine(const char* name, char** params, int size)
     return commandLine;
 }
 
+void outputBinaryFileDataInConsole(const char* nameOfBinFile) {
+    employee s;
+    FILE* in = fopen(nameOfBinFile, "rb");
+    for(int i = 0; ; i++){
+        fseek(in, i*sizeof(struct employee), SEEK_SET);
+        if (!fread(&s, sizeof(employee), 1, in)){
+            break;
+        }
+        printf("%02X\t\t%02X\t\t%02X\n", s.num, s.name, s.hours);
+    }
+}
+
+void outputReportInConsole(const char* nameOfTxtFile) {
+    int ch;
+    FILE* input = fopen(nameOfTxtFile, "r");
+    while (!feof(input)) {
+        ch = getc(input);
+        if (ch != EOF) {
+            putchar(ch);
+        }
+    }
+}
+
 int main() {
     //--------------------Creator-------------
     char nameOfBinFile[10];
@@ -57,6 +87,8 @@ int main() {
     creatorParams[1] = numberOfEmployees;
     char* CreatorCommandLine = CreateCommandLine("Creator.exe", creatorParams, 2);
     CallProcess(CreatorCommandLine);
+
+    outputBinaryFileDataInConsole(nameOfBinFile);
     //-----------------Reporter------------------------
     char nameOfTxtFile[10];
     char paymentPerHour[10];
@@ -71,5 +103,6 @@ int main() {
     char* reporterCommandLine = CreateCommandLine("Reporter.exe", reporterParams, 3);
     CallProcess(reporterCommandLine);
 
+    outputReportInConsole(nameOfTxtFile);
     return 0;
 }
