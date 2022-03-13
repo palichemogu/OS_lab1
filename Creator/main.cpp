@@ -1,5 +1,5 @@
-#include <iostream>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
 
 struct employee
 {
@@ -8,26 +8,21 @@ struct employee
     double hours;
 };
 
-int main() {
-    int i, n;
-    FILE* out;
+int main(int argc, char* argv[]) {
+    char* nameOfBinFile = argv[1];
+    int numberOfEmployees = atoi(argv[2]);
+    FILE* out = fopen(nameOfBinFile, "wb");;
     struct employee s;
-    char filename[10];
-    printf("Input a name of bin file: ");
-    scanf("%s", filename);
-    out = fopen(filename, "wb");
-    printf("Input a number of records to write: ");
-    scanf("%d", &n);
-    if (n < 0)
+
+    if (numberOfEmployees < 0)
         return 0;
     printf("Input num, name and hours.\n");
-    for (i = 0; i < n; ++i)
-    {
+    for (int i = 0; i < numberOfEmployees; ++i) {
         printf("%d> ", i + 1);
         scanf("%d%s%lf", &s.num, &s.name, &s.hours);
         fwrite(&s, sizeof(struct employee), 1, out);
     }
-    fclose(out);
 
+    fclose(out);
     return 0;
 }

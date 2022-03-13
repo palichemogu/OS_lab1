@@ -1,4 +1,5 @@
 #include "stdio.h"
+#include "stdlib.h"
 
 struct employee
 {
@@ -7,19 +8,14 @@ struct employee
     double hours;
 };
 
-int main() {
+int main(int argc, char* argv[]) {
     FILE* in;
     FILE* out;
     employee s;
-    char nameOfBinFile[10];
-    char nameOfTxtFile[10];
-    double paymentPerHour;
-    printf("%s","Enter bin file name:");
-    scanf("%s", nameOfBinFile);
-    printf("%s","Enter txt file name:");
-    scanf("%s", nameOfTxtFile);
-    printf("%s", "Enter payment per hour:");
-    scanf("%lf", &paymentPerHour);
+    char* nameOfBinFile = argv[1];
+    char* nameOfTxtFile = argv[2];
+    double paymentPerHour = atof(argv[3]);
+
     if (!(in = fopen(nameOfBinFile, "rb")))
     {
         printf("Opening bin file failed.\n");
@@ -29,6 +25,7 @@ int main() {
         printf("Opening txt file failed.\n");
         return 1;
     }
+
     fprintf(out, "%s: %s\n", "Report of file", nameOfBinFile);
     fprintf(out,"%s", "Number        Name           Hours        Salary\n");
     for(int i = 0; ; i++){
