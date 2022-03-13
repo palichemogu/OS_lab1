@@ -1,6 +1,5 @@
 #include<Windows.h>
 #include "stdio.h";
-#include<exception>
 
 struct employee
 {
@@ -53,7 +52,12 @@ char* CreateCommandLine(const char* name, char** params, int size)
 
 void outputBinaryFileDataInConsole(const char* nameOfBinFile) {
     employee s;
-    FILE* in = fopen(nameOfBinFile, "rb");
+    FILE* in;
+    if (!(in = fopen(nameOfBinFile, "rb"))) {
+        printf("%s", "Failure in opening bin file to output data");
+        return;
+    }
+    printf("%s", "Bin file: \n");
     for(int i = 0; ; i++){
         fseek(in, i*sizeof(struct employee), SEEK_SET);
         if (!fread(&s, sizeof(employee), 1, in)){
@@ -65,7 +69,11 @@ void outputBinaryFileDataInConsole(const char* nameOfBinFile) {
 
 void outputReportInConsole(const char* nameOfTxtFile) {
     int ch;
-    FILE* input = fopen(nameOfTxtFile, "r");
+    FILE* input;
+    if (!(input = fopen(nameOfTxtFile, "r"))) {
+        printf("%s", "Failure in opening txt file to output data");
+        return;
+    }
     while (!feof(input)) {
         ch = getc(input);
         if (ch != EOF) {
@@ -78,10 +86,22 @@ int main() {
     //--------------------Creator-------------
     char nameOfBinFile[10];
     char numberOfEmployees[10];
+
     printf("%s", "Enter name of bin file:");
-    scanf("%s", nameOfBinFile);
+    try {
+        scanf("%s", nameOfBinFile);
+    } catch (...) {
+        printf("%s", "Exception in name of bin file\n");
+        return 0;
+    }
+
     printf("%s", "Enter number of employees in file:");
-    scanf("%s", numberOfEmployees);
+    try {
+        scanf("%s", numberOfEmployees);
+    } catch (...) {
+        printf("%s", "Exception in number of employees\n");
+        return 0;
+    }
     char** creatorParams = new char*[2];
     creatorParams[0] = nameOfBinFile;
     creatorParams[1] = numberOfEmployees;
@@ -92,10 +112,23 @@ int main() {
     //-----------------Reporter------------------------
     char nameOfTxtFile[10];
     char paymentPerHour[10];
+
     printf("%s", "Enter name of txt file:");
-    scanf("%s", nameOfTxtFile);
+    try {
+        scanf("%s", nameOfTxtFile);
+    } catch (...) {
+        printf("%s", "Exception in name of txt file\n");
+        return 0;
+    }
+
     printf("%s", "Enter payment per hour:");
-    scanf("%s", paymentPerHour);
+    try {
+        scanf("%s", paymentPerHour);
+    } catch (...) {
+        printf("%s", "Exception in payment per hour\n");
+        return 0;
+    }
+
     char** reporterParams = new char*[3];
     reporterParams[0] = nameOfBinFile;
     reporterParams[1] = nameOfTxtFile;

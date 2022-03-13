@@ -1,5 +1,0 @@
-Report of file: ggg.binNumber        Name           Hours        Salary
-10		Ivan		24.000000		24.000000
-11		Gleb		123.000000		123.000000
-14		Alexey		100.000000		100.000000
-1234		Ivan		123.000000		123.000000
