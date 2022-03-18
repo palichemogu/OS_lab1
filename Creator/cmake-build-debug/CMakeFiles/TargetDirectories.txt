@@ -1,3 +1,0 @@
-C:/C++/ОСИ/1 лаба/Creator/cmake-build-debug/CMakeFiles/Creator.dir
-C:/C++/ОСИ/1 лаба/Creator/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/C++/ОСИ/1 лаба/Creator/cmake-build-debug/CMakeFiles/rebuild_cache.dir

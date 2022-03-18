@@ -3,4 +3,4 @@ project(Creator)
 
 set(CMAKE_CXX_STANDARD 98)
 
-add_executable(Creator main.cpp)
+add_executable(Creator Creator.cpp)
